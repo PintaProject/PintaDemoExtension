@@ -1,5 +1,5 @@
 // 
-// DemoExtension.cs
+// RandomColourPicker.cs
 //  
 // Author:
 //       Robert Nordan <rpvn@robpvn.net>
@@ -22,29 +22,23 @@
 // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.using System;
-
-using Pinta.Core;
+// THE SOFTWARE.
 using System;
-
+using Cairo;
 namespace Pinta.Tools
 {
-	[Mono.Addins.Extension]
-	public class DemoExtension : IExtension
+	public class RandomColourPicker
 	{
-		#region IExtension Members
-		public void Initialize ()
+		public RandomColourPicker ()
 		{
-			Console.WriteLine ("Initialising demo extension");
-			PintaCore.Tools.AddTool (new RandomPencilTool ());
 		}
-
-		public void Uninitialize ()
+		
+		public static Color PickRandom ()
 		{
-			Console.WriteLine ("Deinitialising demo extension");
-			PintaCore.Tools.RemoveInstanceOfTool (typeof (RandomPencilTool));
+			//PintaCore.Palette.PrimaryColor
+			Random generator = new Random ();
+			return new Color (generator.NextDouble (), generator.NextDouble (), generator.NextDouble ());
 		}
-		#endregion
 	}
 }
 
