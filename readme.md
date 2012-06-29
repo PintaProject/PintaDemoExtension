@@ -6,12 +6,13 @@ developing the Pinta extension infrastructure.
 
 ##Notes
 
-- It has a lib copy of the current Pinta.Core to build against, and that 
-needs manual updating.
+- It has lib copies of the current Pinta.Core and Pinta.Tools to build against, and they currently need manual updating. (Need to look into automatic updates here.)
 
 - It builds a single dll that needs to be copied to Pinta's bin folder 
-(when developing) or Pinta's install folder (installed Pinta).
+(when developing) or Pinta's install folder (installed Pinta). (A central add-in server is being worked on.)
+
+
 
 ## License
 
-As With the rest of Pinta, this is licensed under the MIT/X11 license.
+As with the rest of Pinta, this is licensed under the MIT/X11 license.
