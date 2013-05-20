@@ -52,8 +52,8 @@ using Mono.Addins;
 //[assembly: AssemblyDelaySign(false)]
 //[assembly: AssemblyKeyFile("")]
 
-[assembly: Addin ("PintaDemoExtension", "1.3", Category = "Utilities")]
+[assembly: Addin ("PintaDemoExtension", "1.4", Category = "Utilities")]
 [assembly: AddinName ("Demo Extension")]
 [assembly: AddinDescription ("A simple extension that demonstrates how extensions work.")]
-[assembly: AddinDependency ("Pinta", "1.3")]
+[assembly: AddinDependency ("Pinta", "1.5")]
 
