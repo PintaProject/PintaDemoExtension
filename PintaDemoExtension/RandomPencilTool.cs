@@ -59,7 +59,7 @@ namespace Pinta.Tools
 				return;
 
 			surface_modified = false;
-			undo_surface = PintaCore.Workspace.ActiveDocument.CurrentLayer.Surface.Clone ();
+			undo_surface = PintaCore.Layers.CurrentLayer.Surface.Clone ();
 			Color tool_color;
 
 			if (args.Event.Button == 1) // left
@@ -107,7 +107,7 @@ namespace Pinta.Tools
 			if (doc.Workspace.PointInCanvas (point))
 				surface_modified = true;
 
-			ImageSurface surf = doc.CurrentLayer.Surface;
+			ImageSurface surf = PintaCore.Layers.CurrentLayer.Surface;
 			
 			if (first_pixel) {
 				// Does Cairo really not support a single-pixel-long single-pixel-wide line?
@@ -120,7 +120,7 @@ namespace Pinta.Tools
 				surf.MarkDirty ();
 			} else {
 				using (Context g = new Context (surf)) {
-					g.AppendPath (doc.SelectionPath);
+					g.AppendPath (doc.Selection.SelectionPath);
 					g.FillRule = FillRule.EvenOdd;
 					g.Clip ();
 				
@@ -151,7 +151,7 @@ namespace Pinta.Tools
 			Document doc = PintaCore.Workspace.ActiveDocument;
 
 			if (surface_modified)
-				doc.History.PushNewItem (new SimpleHistoryItem (Icon, Name, undo_surface, doc.CurrentLayerIndex));
+				doc.History.PushNewItem (new SimpleHistoryItem (Icon, Name, undo_surface, PintaCore.Layers.CurrentLayerIndex));
 			else if (undo_surface != null)
 				(undo_surface as IDisposable).Dispose ();
 
