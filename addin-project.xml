@@ -27,7 +27,7 @@ THE SOFTWARE.
 -->
 
 <AddinProject appVersion="1.5">
-	<Project platforms="Mac Windows Linux">
+	<Project platforms="All">
 		<AddinFile>PintaDemoExtension/bin/Debug/PintaDemoExtension.dll</AddinFile>
 		<BuildFile>PintaDemoExtension.sln</BuildFile>
 		<BuildConfiguration>Debug</BuildConfiguration>
