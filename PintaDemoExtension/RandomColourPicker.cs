@@ -32,7 +32,7 @@ namespace Pinta.Tools
 		public RandomColourPicker ()
 		{
 		}
-		
+
 		public static Color PickRandom ()
 		{
 			//PintaCore.Palette.PrimaryColor

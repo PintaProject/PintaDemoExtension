@@ -28,147 +28,129 @@ using System;
 using Cairo;
 using Gtk;
 using Pinta.Core;
-using Mono.Unix;
+using Mono.Addins;
 
 namespace Pinta.Tools
 {
 	public class RandomPencilTool : BaseTool
-	{		
-		private Point last_point = point_empty;
-		
-		private ImageSurface undo_surface;
-		private bool surface_modified;
+	{
+		private readonly IPaletteService palette;
 
-		public RandomPencilTool ()
+		private PointI last_point = point_empty;
+
+		private ImageSurface? undo_surface;
+		private bool surface_modified;
+		private MouseButton mouse_button;
+
+		public RandomPencilTool (IServiceManager services) : base (services)
 		{
+			palette = services.GetService<IPaletteService> ();
 		}
 
-		#region Properties
-		public override string Name { get { return Catalog.GetString ("Random Pencil"); } }
-		public override string Icon { get { return "Tools.Pencil.png"; } }
-		public override string StatusBarText { get { return Catalog.GetString ("Left click to draw freeform, one-pixel wide lines with a random colour."); } }
-		public override Gdk.Cursor DefaultCursor { get { return new Gdk.Cursor (PintaCore.Chrome.Canvas.Display, PintaCore.Resources.GetIcon ("Cursor.Pencil.png"), 1, 14); } }
-		//public override Gdk.Key ShortcutKey { get { return Gdk.Key.; } }
-		public override int Priority { get { return 29; } }
-		#endregion
+		public override string Name => AddinManager.CurrentLocalizer.GetString ("Random Pencil");
+		public override string Icon => "tool-pencil-symbolic"; // TODO - access from Pinta.Resources?
+		public override string StatusBarText => AddinManager.CurrentLocalizer.GetString (
+			"Left click to draw freeform one-pixel wide lines with the primary color." +
+			"\nRight click to use the secondary color.");
+		public override Gdk.Cursor DefaultCursor => Gdk.Cursor.NewFromTexture (Resources.GetIcon ("Cursor.Pencil.png"), 7, 24, null);
+		public override int Priority => 29;
+		protected override bool ShowAlphaBlendingButton => true;
 
-		#region Mouse Handlers
-		protected override void OnMouseDown (Gtk.DrawingArea canvas, Gtk.ButtonPressEventArgs args, Cairo.PointD point)
+		protected override void OnMouseDown (Document document, ToolMouseEventArgs e)
 		{
-			if (surface_modified)
+			// If we are already drawing, ignore any additional mouse down events
+			if (mouse_button != MouseButton.None)
 				return;
 
 			surface_modified = false;
-			undo_surface = PintaCore.Layers.CurrentLayer.Surface.Clone ();
+			undo_surface = document.Layers.CurrentUserLayer.Surface.Clone ();
+			mouse_button = e.MouseButton;
+
 			Color tool_color;
 
-			if (args.Event.Button == 1) // left
-				tool_color = PintaCore.Palette.PrimaryColor;
-			else if (args.Event.Button == 3) // right
-				tool_color = PintaCore.Palette.SecondaryColor;
-			else {
+			if (e.MouseButton == MouseButton.Left) {
+				tool_color = palette.PrimaryColor;
+			} else if (e.MouseButton == MouseButton.Right) {
+				tool_color = palette.SecondaryColor;
+			} else {
 				last_point = point_empty;
 				return;
 			}
 
-			Draw (canvas, tool_color, point, true);
+			Draw (document, e, tool_color, true);
 		}
 
-		protected override void OnMouseMove (object o, Gtk.MotionNotifyEventArgs args, Cairo.PointD point)
+		protected override void OnMouseMove (Document document, ToolMouseEventArgs e)
 		{
 			Color tool_color;
-		
-			if ((args.Event.State & Gdk.ModifierType.Button1Mask) != 0)
+
+			if (mouse_button == MouseButton.Left || mouse_button == MouseButton.Right) {
 				tool_color = RandomColourPicker.PickRandom ();
-			else if ((args.Event.State & Gdk.ModifierType.Button3Mask) != 0)
-				tool_color = RandomColourPicker.PickRandom ();
-			else {
+			} else {
 				last_point = point_empty;
 				return;
 			}
-			
-			Draw ((DrawingArea) o, tool_color, point, false);
+
+			Draw (document, e, tool_color, false);
 		}
-		
-		private void Draw (DrawingArea drawingarea1, Color tool_color, Cairo.PointD point, bool first_pixel)
+
+		protected override void OnMouseUp (Document document, ToolMouseEventArgs e)
 		{
-			int x = (int)point.X;
-			int y = (int) point.Y;
-			
+			if (undo_surface != null && surface_modified) {
+				document.History.PushNewItem (new SimpleHistoryItem (Icon, Name, undo_surface, document.Layers.CurrentUserLayerIndex));
+			}
+
+			surface_modified = false;
+			undo_surface = null;
+			mouse_button = MouseButton.None;
+		}
+
+		private void Draw (Document document, ToolMouseEventArgs e, Color tool_color, bool first_pixel)
+		{
+			var x = e.Point.X;
+			var y = e.Point.Y;
+
 			if (last_point.Equals (point_empty)) {
-				last_point = new Point (x, y);
-				
+				last_point = e.Point;
+
 				if (!first_pixel)
 					return;
 			}
-			
-			Document doc = PintaCore.Workspace.ActiveDocument;
 
-			if (doc.Workspace.PointInCanvas (point))
+			if (document.Workspace.PointInCanvas (e.PointDouble))
 				surface_modified = true;
 
-			ImageSurface surf = PintaCore.Layers.CurrentLayer.Surface;
-			
+			var g = document.CreateClippedContext ();
+
+			g.Antialias = Antialias.None;
+
+			g.SetSourceColor (tool_color);
+
+			if (UseAlphaBlending)
+				g.SetBlendMode (BlendMode.Normal);
+			else
+				g.Operator = Operator.Source;
+
+			g.LineWidth = 1;
+			g.LineCap = LineCap.Square;
+
 			if (first_pixel) {
-				// Does Cairo really not support a single-pixel-long single-pixel-wide line?
-				surf.Flush ();
-				int shiftedX = (int)point.X;
-				int shiftedY = (int)point.Y;
-				ColorBgra source = surf.GetColorBgraUnchecked (shiftedX, shiftedY);
-				source = UserBlendOps.NormalBlendOp.ApplyStatic (source, tool_color.ToColorBgra ());
-				surf.SetColorBgra (source, shiftedX, shiftedY);
-				surf.MarkDirty ();
+				// Cairo does not support a single-pixel-long single-pixel-wide line
+				g.Rectangle (x, y, 1.0, 1.0);
+				g.Fill ();
 			} else {
-				using (Context g = new Context (surf)) {
-					g.AppendPath (doc.Selection.SelectionPath);
-					g.FillRule = FillRule.EvenOdd;
-					g.Clip ();
-				
-					g.Antialias = Antialias.None;
-				
-					// Adding 0.5 forces cairo into the correct square:
-					// See https://bugs.launchpad.net/bugs/672232
-					g.MoveTo (last_point.X + 0.5, last_point.Y + 0.5);
-					g.LineTo (x + 0.5, y + 0.5);
-
-					g.Color = tool_color;
-					g.LineWidth = 1;
-					g.LineCap = LineCap.Square;
-				
-					g.Stroke ();
-				}
+				// Adding 0.5 forces cairo into the correct square:
+				// See https://bugs.launchpad.net/bugs/672232
+				g.MoveTo (last_point.X + 0.5, last_point.Y + 0.5);
+				g.LineTo (x + 0.5, y + 0.5);
+				g.Stroke ();
 			}
-			
-			Gdk.Rectangle r = GetRectangleFromPoints (last_point, new Point (x, y));
 
-			doc.Workspace.Invalidate (r);
-			
-			last_point = new Point (x, y);
+			var dirty = CairoExtensions.GetRectangleFromPoints (last_point, new PointI (x, y), 4);
+
+			document.Workspace.Invalidate (document.ClampToImageSize (dirty));
+
+			last_point = new PointI (x, y);
 		}
-		
-		protected override void OnMouseUp (Gtk.DrawingArea canvas, Gtk.ButtonReleaseEventArgs args, Cairo.PointD point)
-		{
-			Document doc = PintaCore.Workspace.ActiveDocument;
-
-			if (surface_modified)
-				doc.History.PushNewItem (new SimpleHistoryItem (Icon, Name, undo_surface, PintaCore.Layers.CurrentLayerIndex));
-			else if (undo_surface != null)
-				(undo_surface as IDisposable).Dispose ();
-
-			surface_modified = false;
-		}
-		#endregion
-
-		#region Private Methods
-		private Gdk.Rectangle GetRectangleFromPoints (Point a, Point b)
-		{
-			int x = Math.Min (a.X, b.X) - 2 - 2;
-			int y = Math.Min (a.Y, b.Y) - 2 - 2;
-			int w = Math.Max (a.X, b.X) - x + (2 * 2) + 4;
-			int h = Math.Max (a.Y, b.Y) - y + (2 * 2) + 4;
-			
-			return new Gdk.Rectangle (x, y, w, h);
-		}
-		#endregion
 	}
 }

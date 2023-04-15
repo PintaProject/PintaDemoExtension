@@ -24,8 +24,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.using System;
 
+using Mono.Addins;
 using Pinta.Core;
 using System;
+
+[assembly: Addin ("PintaDemoExtension", "2.2", Category = "Utilities")]
+[assembly: AddinName ("Demo Add-in")]
+[assembly: AddinDescription ("A simple add-in that demonstrates how add-ins work.")]
+[assembly: AddinDependency ("Pinta", "2.2")]
 
 namespace Pinta.Tools
 {
@@ -36,13 +42,13 @@ namespace Pinta.Tools
 		public void Initialize ()
 		{
 			Console.WriteLine ("Initialising demo extension");
-			PintaCore.Tools.AddTool (new RandomPencilTool ());
+			PintaCore.Tools.AddTool (new RandomPencilTool (PintaCore.Services));
 		}
 
 		public void Uninitialize ()
 		{
 			Console.WriteLine ("Deinitialising demo extension");
-			PintaCore.Tools.RemoveInstanceOfTool (typeof (RandomPencilTool));
+			PintaCore.Tools.RemoveInstanceOfTool<RandomPencilTool> ();
 		}
 		#endregion
 	}
