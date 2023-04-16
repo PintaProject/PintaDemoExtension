@@ -22,3 +22,12 @@ jobs:
         dotnet-version: 7.0.x
     - name: Compile
       run: dotnet build -c Release
+    - name: Install mautil
+      run: dotnet tool install --global Mono.Addins.UtilTool
+    - name: Create Package
+      run: mautil pack PintaDemoExtension/bin/Release/net7.0/PintaDemoExtension.dll
+    - name: Upload Package
+      uses: actions/upload-artifact@v3
+      with:
+        path: '*.mpack'
+        if-no-files-found: error
