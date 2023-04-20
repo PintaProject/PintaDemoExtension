@@ -13,4 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Pinta\Pinta.Core\Pinta.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include=".addin.xml" />
+  </ItemGroup>
 </Project>
