@@ -1,5 +1,7 @@
 # Pinta Demo Extension
 
+[![Translation status](https://hosted.weblate.org/widget/pinta/demoaddin/287x66-grey.png)](https://hosted.weblate.org/engage/pinta/)
+
 This is a simple demo project, to be used in the future for a tutorial 
 on making Pinta extensions. Currently being used as a test case for 
 developing the Pinta extension infrastructure.
