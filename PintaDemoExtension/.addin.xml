@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Addin id="PintaDemoExtension" version="2.2.3" category="Utilities">
-  <!-- Information shown in the add-in manager. -->
+   <!-- Information shown in the add-in manager. -->
 	<Header>
 		<Name>Demo Add-in</Name>
 		<Description>A simple add-in that demonstrates how add-ins work.</Description>
 		<Author>Pinta Project</Author>
 		<Url>https://github.com/PintaProject/PintaDemoExtension</Url>
 	</Header>
-  <!-- Declare the minimum required version of Pinta. -->
+	<!-- Declare the minimum required version of Pinta. -->
 	<Dependencies>
 		<Addin id="Pinta" version="2.2" />
 	</Dependencies>
+	<!-- Use string resources (from satellite assemblies) to localize strings used in the add-in -->
+	<Localizer type="StringResource" />
 </Addin>

@@ -49,9 +49,7 @@ namespace Pinta.Tools
 
 		public override string Name => AddinManager.CurrentLocalizer.GetString ("Random Pencil");
 		public override string Icon => "tool-pencil-symbolic"; // TODO - access from Pinta.Resources?
-		public override string StatusBarText => AddinManager.CurrentLocalizer.GetString (
-			"Left click to draw freeform one-pixel wide lines with the primary color." +
-			"\nRight click to use the secondary color.");
+		public override string StatusBarText => AddinManager.CurrentLocalizer.GetString ("Tooltip");
 		public override Gdk.Cursor DefaultCursor => Gdk.Cursor.NewFromTexture (Resources.GetIcon ("Cursor.Pencil.png"), 7, 24, null);
 		public override int Priority => 29;
 		protected override bool ShowAlphaBlendingButton => true;
