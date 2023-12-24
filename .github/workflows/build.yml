@@ -20,6 +20,8 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 8.0.x
+    - name: Merge translations into add-in manifest
+      run: dotnet run --project Pinta/installer/addins/Pinta.AddinUtils.csproj -- localize-manifest --manifest-file PintaDemoExtension/.addin.xml --resource-files PintaDemoExtension/Resources/*.resx
     - name: Compile
       run: dotnet build -c Release
     - name: Install mautil
