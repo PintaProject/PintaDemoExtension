@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -58,4 +58,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Random Pencil" xml:space="preserve">
+    <value>Pincel Aleatório</value>
+    <comment>This is a pencil drawing tool which draws with random colors.</comment>
+  </data>
+  <data name="Tooltip" xml:space="preserve">
+    <value>Clique com o botão esquerdo para desenhar linhas de forma livre com um pixel de largura usando a cor primária.
+Clique com o botão direito para usar a cor secundária.</value>
+    <comment />
+  </data>
+  <data name="Demo Add-in" xml:space="preserve">
+    <value>Complemento - Demo</value>
+    <comment>The name of the add-in.</comment>
+  </data>
+  <data name="A simple add-in that demonstrates how add-ins work." xml:space="preserve">
+    <value>Eu complemento simples para demonstrar como complementos funcionam.</value>
+    <comment />
+  </data>
 </root>
