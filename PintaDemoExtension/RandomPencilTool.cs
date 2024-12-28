@@ -36,7 +36,7 @@ namespace Pinta.Tools
 	{
 		private readonly IPaletteService palette;
 
-		private PointI last_point = point_empty;
+		private PointI? last_point = null;
 
 		private ImageSurface? undo_surface;
 		private bool surface_modified;
@@ -71,7 +71,7 @@ namespace Pinta.Tools
 			} else if (e.MouseButton == MouseButton.Right) {
 				tool_color = palette.SecondaryColor;
 			} else {
-				last_point = point_empty;
+				last_point = null;
 				return;
 			}
 
@@ -85,7 +85,7 @@ namespace Pinta.Tools
 			if (mouse_button == MouseButton.Left || mouse_button == MouseButton.Right) {
 				tool_color = RandomColourPicker.PickRandom ();
 			} else {
-				last_point = point_empty;
+				last_point = null;
 				return;
 			}
 
@@ -108,7 +108,7 @@ namespace Pinta.Tools
 			var x = e.Point.X;
 			var y = e.Point.Y;
 
-			if (last_point.Equals (point_empty)) {
+			if (last_point is null) {
 				last_point = e.Point;
 
 				if (!first_pixel)
@@ -139,12 +139,12 @@ namespace Pinta.Tools
 			} else {
 				// Adding 0.5 forces cairo into the correct square:
 				// See https://bugs.launchpad.net/bugs/672232
-				g.MoveTo (last_point.X + 0.5, last_point.Y + 0.5);
+				g.MoveTo (last_point.Value.X + 0.5, last_point.Value.Y + 0.5);
 				g.LineTo (x + 0.5, y + 0.5);
 				g.Stroke ();
 			}
 
-			var dirty = CairoExtensions.GetRectangleFromPoints (last_point, new PointI (x, y), 4);
+			var dirty = CairoExtensions.GetRectangleFromPoints (last_point.Value, new PointI (x, y), 4);
 
 			document.Workspace.Invalidate (document.ClampToImageSize (dirty));
 
