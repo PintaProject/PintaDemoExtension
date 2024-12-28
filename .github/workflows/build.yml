@@ -29,7 +29,7 @@ jobs:
     - name: Create Package
       run: mautil pack PintaDemoExtension/bin/Release/net8.0/PintaDemoExtension.dll
     - name: Upload Package
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         path: '*.mpack'
         if-no-files-found: error
