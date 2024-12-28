@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Addin id="PintaDemoExtension" version="2.2.3" category="Utilities">
+<Addin id="PintaDemoExtension" version="3.0.0" category="Utilities">
    <!-- Information shown in the add-in manager. -->
 	<Header>
 		<Name>Demo Add-in</Name>
@@ -9,7 +9,7 @@
 	</Header>
 	<!-- Declare the minimum required version of Pinta. -->
 	<Dependencies>
-		<Addin id="Pinta" version="2.2" />
+		<Addin id="Pinta" version="3.0" />
 	</Dependencies>
 	<!-- Use string resources (from satellite assemblies) to localize strings used in the add-in -->
 	<Localizer type="StringResource" />
