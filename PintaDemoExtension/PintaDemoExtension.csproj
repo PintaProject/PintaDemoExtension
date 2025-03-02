@@ -3,8 +3,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
 
-    <Version>2.2.3.0</Version>
+    <Version>3.0.1.0</Version>
     <Authors>PintaProject</Authors>
+
+    <!-- Don't include resource files since we embed these in the addin manifest -->
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
   </PropertyGroup>
 
   <ItemGroup>
