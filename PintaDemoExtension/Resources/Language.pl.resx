@@ -71,7 +71,7 @@
     <comment>The name of the add-in.</comment>
   </data>
   <data name="Tooltip" xml:space="preserve">
-    <value>Kreśl linie o szerokości jednego piksela w kolorze podstawowym naciskając lewy przycisk myszy.
+    <value>Kreśl linie o szerokości jednego piksela w kolorze podstawowym, naciskając lewy przycisk myszy.
 Skorzystaj z koloru dodatkowego za pomocą prawego przycisku myszy.</value>
     <comment />
   </data>
