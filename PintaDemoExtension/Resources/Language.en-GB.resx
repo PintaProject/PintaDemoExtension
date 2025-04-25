@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -58,4 +58,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Random Pencil" xml:space="preserve">
+    <value>Random Pencil</value>
+  </data>
+  <data name="Demo Add-in" xml:space="preserve">
+    <value>Demo Add-in</value>
+  </data>
+  <data name="A simple add-in that demonstrates how add-ins work." xml:space="preserve">
+    <value>A simple add-in that demonstrates how add-ins work.</value>
+  </data>
+  <data name="Tooltip" xml:space="preserve">
+    <value>Left click to draw freeform one-pixel wide lines with the primary colour.
+Right click to use the secondary colour.</value>
+  </data>
 </root>
