@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -58,4 +58,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Random Pencil" xml:space="preserve">
+    <value>Slučajna olovka</value>
+  </data>
+  <data name="Tooltip" xml:space="preserve">
+    <value>Lijevi klik za crtanje linija rukom širine jednog piksela s primarnom bojom.
+Desni klik za crtanje sa sekundarnom bojom.</value>
+  </data>
+  <data name="Demo Add-in" xml:space="preserve">
+    <value>Demo dodatak</value>
+  </data>
+  <data name="A simple add-in that demonstrates how add-ins work." xml:space="preserve">
+    <value>Jednostavan dodatak koji prikazuje kako dodaci rade.</value>
+  </data>
 </root>
