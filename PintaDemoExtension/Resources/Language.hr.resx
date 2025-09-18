@@ -62,8 +62,8 @@
     <value>Slučajna olovka</value>
   </data>
   <data name="Tooltip" xml:space="preserve">
-    <value>Lijevi klik za crtanje linija rukom širine jednog piksela s primarnom bojom.
-Desni klik za crtanje sa sekundarnom bojom.</value>
+    <value>Lijevi klik za prostoručno crtanje linija širine jednog piksela s primarnom bojom.
+Desni klik za korištenje sekundarne boje.</value>
   </data>
   <data name="Demo Add-in" xml:space="preserve">
     <value>Demo dodatak</value>
