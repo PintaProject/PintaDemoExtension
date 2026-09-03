@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -58,4 +58,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Random Pencil" xml:space="preserve">
+    <value>Pyncel Chonsus</value>
+  </data>
+  <data name="Tooltip" xml:space="preserve">
+    <value>Klyckya kledh rag delinya linennow unn pyskel efan rudh gans an kolor kynsa.
+Klyckya dyghow devnydhya an kolor nessa.</value>
+  </data>
+  <data name="Demo Add-in" xml:space="preserve">
+    <value>Ystynnans Diskwedhyans</value>
+  </data>
+  <data name="A simple add-in that demonstrates how add-ins work." xml:space="preserve">
+    <value>Unn ystynnans sempel may diskwedhes ass ystynnans oberi.</value>
+  </data>
 </root>

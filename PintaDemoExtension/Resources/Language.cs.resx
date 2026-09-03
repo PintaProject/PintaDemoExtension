@@ -59,16 +59,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Random Pencil" xml:space="preserve">
-    <value>Satunnaisvärikynä</value>
+    <value>Náhodná Tužka</value>
   </data>
   <data name="Tooltip" xml:space="preserve">
-    <value>Napsauta hiiren kakkospainiketta ja piirrä vapaalla kädellä pikselin levyisiä viivoja pääväriä käyttäen.
-Voit käyttää toissijaista väriä napsauttamalla hiiren oikeanpuoleista painiketta.</value>
+    <value>Levé kliknutí pro volné kreslení jedno pixelové linky s primární barvou.
+Pravé kliknutí pro použití sekundární barvy.</value>
   </data>
   <data name="Demo Add-in" xml:space="preserve">
-    <value>Esittelylisäosa</value>
+    <value>Ukázkový Addon</value>
   </data>
   <data name="A simple add-in that demonstrates how add-ins work." xml:space="preserve">
-    <value>Yksinkertainen, lisäosien käyttöä esittelevä lisäosa.</value>
+    <value>Jednoduchý addon co demonstruje jak addony fungují.</value>
   </data>
 </root>
